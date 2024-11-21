@@ -15,5 +15,4 @@ GRANT ALL PRIVILEGES ON ${DB_NAME}.* TO '${DB_ADMIN}'@'%';
 FLUSH PRIVILEGES;
 EOSQL
 
-echo "Starting MariaDB in foreground..."
 exec mysqld --init-file=/tmp/init.sql
