@@ -14,6 +14,7 @@ COPY ./conf/custom_php_config.conf /etc/php/7.4/fpm/pool.d/www.conf
 
 COPY ./tools /var/www/
 
+
 RUN chown -R www-data:www-data /var/www && chmod -R 755 /var/www
 
 RUN chmod +x /var/www/wordpress_setup.sh

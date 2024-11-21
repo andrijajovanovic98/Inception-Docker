@@ -30,6 +30,8 @@ services:
     build:
       context: ./requirements/nginx
     container_name: nginx_container
+    env_file:
+      - my_env_file.env
     ports:
       - "443:443"
     volumes:
@@ -40,9 +42,18 @@ services:
       - wordpress
     restart: always
 
-volumes:
-  mariadb_data:
-  wordpress_data:
-
 networks:
   inception_network:
+volumes:
+  mariadb_data:
+   driver: local
+   driver_opts:
+    type: none
+    device: /home/ruva/data/mariadb
+    o: bind
+  wordpress_data:
+   driver: local
+   driver_opts:
+    type: none
+    device: /home/ruva/data/wordpress
+    o: bind

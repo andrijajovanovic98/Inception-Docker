@@ -9,6 +9,7 @@ RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
     -subj /C=AT//L=Vienna/O=Student/OU=42School/CN=ajovanov.42.fr/emailAddress=support@ajovanov.42.com
 
 
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY ./tools/nginx.sh /
+RUN chmod +x /nginx.sh
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["/nginx.sh"]

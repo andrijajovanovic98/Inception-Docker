@@ -13,7 +13,6 @@ if [ ! -d /run/php ]; then
     chmod 755 /run/php
 fi
 
-echo "WordPress telepítés ellenőrzése..."
 
 if [ ! -f /var/www/html/wp-config.php ]; then
     echo "WordPress installing in process.."
@@ -33,6 +32,7 @@ mv wp-cli.phar /usr/local/bin/wp
 
 echo "WordPress installing with wp-cli..."
 wp core install --url=${DOMAIN_NAME} --title=${WP_TITLE} --admin_user=${WP_ADMIN_USER} --admin_password=${WP_ADMIN_PASSWORD} --admin_email=${WP_ADMIN_EMAIL} --path=/var/www/html --allow-root
+wp user create ${USER2} ${USER2_EMAIL} --role=subscriber --user_pass=${USER2_PASSWORD} --path=/var/www/html --allow-root
 
 echo "WordPress is successfully installed"
 exec "$@"

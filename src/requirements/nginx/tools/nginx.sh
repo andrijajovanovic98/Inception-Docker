@@ -1,3 +1,7 @@
+#!/bin/bash
+set -e
+
+cat > /etc/nginx/nginx.conf <<EOF
 events {}
 
 http {
@@ -6,23 +10,29 @@ http {
 
     server {
         listen 443 ssl;
-        server_name ajovanov.42.fr;
+        server_name $SERVER_NAME;
 
         ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;
         ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;
+
+        ssl_protocols TLSv1.2 TLSv1.3;
+        ssl_prefer_server_ciphers on;
 
         root /var/www/html;
         index index.php;
 
         location / {
-            try_files $uri $uri/ /index.php;
+            try_files \$uri \$uri/ /index.php;
         }
 
-        location ~ \.php$ {
+        location ~ \\.php\$ {
             include fastcgi_params;
-            fastcgi_pass wordpress_container:9000;
+            fastcgi_pass $WORDPRESS_CON;
             fastcgi_index index.php;
-            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+            fastcgi_param SCRIPT_FILENAME \$document_root\$fastcgi_script_name;
         }
     }
 }
+EOF
+
+nginx -g "daemon off;"
