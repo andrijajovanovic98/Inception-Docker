@@ -1,11 +1,11 @@
-version: '3.8'
 
 services:
   mariadb:
     build: ./requirements/mariadb
+    image: mariadb
     container_name: mariadb_container    
     env_file:
-      - my_env_file.env
+      - .env
     volumes:
       - mariadb_data:/var/lib/mysql
     networks:
@@ -15,9 +15,10 @@ services:
   wordpress:
     build:
      context: ./requirements/wordpress
+    image: wordpress
     container_name: wordpress_container
     env_file:
-      - my_env_file.env
+      - .env
     volumes:
       - wordpress_data:/var/www/html
     networks:
@@ -29,9 +30,10 @@ services:
   nginx:
     build:
       context: ./requirements/nginx
+    image: nginx
     container_name: nginx_container
     env_file:
-      - my_env_file.env
+      - .env
     ports:
       - "443:443"
     volumes:
@@ -49,11 +51,11 @@ volumes:
    driver: local
    driver_opts:
     type: none
-    device: /home/ruva/data/mariadb
+    device: /home/ajovanov/data/mariadb
     o: bind
   wordpress_data:
    driver: local
    driver_opts:
     type: none
-    device: /home/ruva/data/wordpress
+    device: /home/ajovanov/data/wordpress
     o: bind

@@ -13,7 +13,7 @@ http {
         server_name $SERVER_NAME;
 
         ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;
-        ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;
+        $SSLKEY
 
         ssl_protocols TLSv1.2 TLSv1.3;
         ssl_prefer_server_ciphers on;
