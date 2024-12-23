@@ -5,9 +5,7 @@ sed -i "s/db_user/$DB_USER/g" /var/www/wp-config.php
 sed -i "s/db_password/$DB_PASSWORD/g" /var/www/wp-config.php
 sed -i "s/db_host/$DB_HOST/g" /var/www/wp-config.php
 
-echo "Ellenőrizzük a szükséges könyvtárakat..."
 if [ ! -d /run/php ]; then
-    echo "Létrehozzuk a /run/php könyvtárat..."
     mkdir -p /run/php
     chown -R www-data:www-data /run/php
     chmod 755 /run/php
